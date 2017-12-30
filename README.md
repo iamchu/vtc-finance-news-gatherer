@@ -1,0 +1,1 @@
+# vtc-financial-news-gatherer
