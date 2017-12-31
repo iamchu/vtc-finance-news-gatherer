@@ -42,10 +42,14 @@ for i in range(len(impresso_editorias)):
 	noticia_impresso = bs4.BeautifulSoup(str(impresso_editorias[i]), "lxml")
 
 	for j in range(len(noticia_impresso)):
-		teaser_title = noticia_impresso.find(class_ = "teaser-title")
+		chapeu_press = noticia_impresso.find(class_ = "chapeu-press")
+		manchete_title = noticia_impresso.find(class_ = "manchete-title")
 		teaser = noticia_impresso.find(class_ = "teaser")
 
-		print '[' + teaser_title.get_text().strip() + ']'
+		if chapeu_press.get_text() != '':
+			print str(i) + '. [' + chapeu_press.get_text() + ' - ' + manchete_title.get_text().strip() + ']'
+		else:
+			print str(i) + '. [' + manchete_title.get_text().strip() + ']'
 		print teaser.get_text().strip()
 		print '\n' + '---'*20
 
