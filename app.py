@@ -8,7 +8,7 @@ import bs4
 def main():
 	getTitles()
 
-# gets all titles and returns as list
+# gets all titles and returns as list (?????)
 def getTitles():
 	url = 'http://www.valor.com.br/impresso'
 
@@ -22,11 +22,13 @@ def getTitles():
 	if teaser_titles == []:
 		print 'no titles found'
 	else:
+		print '---'*30 
+		print '---'*30 
 		for i in range(len(teaser_titles)):
-			print  '[' + teaser_titles[i].get_text().strip() + ']'
+			print  str(i) + "." + "[ " + teaser_titles[i].get_text().strip() + " ]" 
 			if teasers[i]:
 				print teasers[i].get_text().strip()
-			print '-----'*3
+			print '-----'*10
 		# for i in range(len(teasers)):
 			# print teasers[i].get_text()
 
