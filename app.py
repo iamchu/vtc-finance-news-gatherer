@@ -1,6 +1,3 @@
-# todo
-# adicionar links pras noticias
-
 import requests
 import bs4
 
