@@ -8,39 +8,42 @@ def main():
 def getNewsFromValor():
 	import requests
 	import bs4
-
+	news_index_count = 0
 	url = 'http://www.valor.com.br/impresso'
 
 	valor_page = requests.get(url)
 	valor_page.raise_for_status()
 	valor_page = bs4.BeautifulSoup(valor_page.text, "lxml")
 
-	# returns a list containing all impresso_editorias in valor_page
 	impresso_editorias = valor_page.find_all(class_ = "impresso-editorias")
 
 	for i in range(len(impresso_editorias)):
+		print '\n'
+		section_with_noticia_impresso = bs4.BeautifulSoup(str(impresso_editorias[i]), "lxml")
 
-		# this should be nameed someting else!! Because there are multiple noticia-impresso in each of
-		# impresso-editorias!
-		# what we need to do is grab each noticia-impresso from each impresso-editorias. 
-		# There will be multiple noticia-impresso! 
-		# we'll probably need to use another bs4
+		# TITULO DO CADERNO
+		print '*********** ' + section_with_noticia_impresso.find(class_ = "section-title").get_text() + ' ***********'
+		print '\n'
+		
+		for j in range(len(section_with_noticia_impresso)):
+			noticia_impresso = section_with_noticia_impresso.find_all(class_ = "noticia-impresso")
 
-		# returns a list of the impresso-editorias
-		noticia_impresso = bs4.BeautifulSoup(str(impresso_editorias[i]), "lxml")
+			for g in range(len(noticia_impresso)):
+				news_index_count+=1
 
-		for j in range(len(noticia_impresso)):
+				unidade_de_noticia = bs4.BeautifulSoup(str(noticia_impresso[g]), "lxml")
 
-			chapeu_press = noticia_impresso.find(class_ = "chapeu-press")
-			manchete_title = noticia_impresso.find(class_ = "manchete-title")
-			teaser = noticia_impresso.find(class_ = "teaser")
+				chapeu_press = unidade_de_noticia.find(class_ = "chapeu-press")
+				manchete_title = unidade_de_noticia.find(class_ = "manchete-title")
+				teaser = unidade_de_noticia.find(class_ = "teaser")
 
-			if chapeu_press.get_text() != '':
-				print str(i+1) + '. [' + chapeu_press.get_text() + ' - ' + manchete_title.get_text().strip() + ']'
-			else:
+				if chapeu_press.get_text() != '':
+					print str(news_index_count) + '. [' + chapeu_press.get_text() + ' - ' + manchete_title.get_text().strip() + ']'
+				else:
 
-				print str(i+1) + '. [' + manchete_title.get_text().strip() + ']'
-			print teaser.get_text().strip()
-			print '\n' + '---'*20
+					print str(news_index_count) + '. [' + manchete_title.get_text().strip() + ']'
+				print teaser.get_text().strip()
+
+				print '\n' + '---'*20
 
 main()
