@@ -6,7 +6,6 @@ def main():
 	url_suffix = raw_input()
 	getNewsFromValor(url_suffix)
 
-# gets all titles and returns as list (?????)
 def getNewsFromValor(url_suffix = ''):
 	import requests
 	import bs4
