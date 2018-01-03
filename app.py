@@ -7,8 +7,6 @@ def main():
 	getNewsFromValor(url_suffix)
 
 def getNewsFromValor(url_suffix = ''):
-	import requests
-	import bs4
 	news_index_count = 0
 	url = 'http://www.valor.com.br/impresso/' + url_suffix
 
